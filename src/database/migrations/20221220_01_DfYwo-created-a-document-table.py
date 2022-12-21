@@ -11,10 +11,10 @@ steps = [
     step(
         """
         CREATE TABLE document (
-            id SERIAL PRIMARY KEY,
-            rubrics TEXT[] NOT NULL,
-            text TEXT NOT NULL,
-            created_date TIMESTAMP NOT NULL 
+            id int GENERATED ALWAYS AS IDENTITY NOT NULL,
+            rubrics text[] NOT NULL,
+            text text NOT NULL,
+            created_date timestamp NOT NULL 
         );
         """,
         """

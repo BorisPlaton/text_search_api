@@ -1,6 +1,5 @@
 from typing import Callable
 
-import asyncpg
 import uvicorn
 from fastapi import FastAPI
 from starlette.requests import Request
@@ -39,18 +38,18 @@ def create_app():
         Gets a db connection from the connection pool and sets it to
         the request, so the service layer can use it.
         """
-        with db.connection_pool.acquire() as con:
-            app.state['connection'] = con
+        async with db.connection_pool.acquire() as con:
+            request.state.connection = con
             return await call_next(request)
 
-    @app.on_event('on_startup')
+    @app.on_event('startup')
     async def initialize_connection_pool():
         """
         Initialize a connection pool.
         """
         return await db.create_connection_pool()
 
-    @app.on_event('on_shutdown')
+    @app.on_event('shutdown')
     async def shutdown_connection_pool():
         """
         Close all connections in the pool.

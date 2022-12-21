@@ -1,5 +1,7 @@
-from fastapi import APIRouter
+from asyncpg import Connection
+from fastapi import APIRouter, Depends
 
+from database.dependencies import get_db_connection
 from text_searcher.schemas import TextFragment
 
 
@@ -13,7 +15,7 @@ router = APIRouter(
     '/',
     description="Returns the list of text documents whose content matches the given one."
 )
-async def get_text_documents(text: TextFragment):
+async def get_text_documents(text: TextFragment, db: Connection = Depends(get_db_connection)):
     pass
 
 
