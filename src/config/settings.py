@@ -16,9 +16,13 @@ class ProjectSettings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
 
+    ELASTICSEARCH_PORT: str
+    ELASTICSEARCH_HOST: str
+
     class Config:
         env_file = map(lambda x: Path(__file__).parent.parent.parent / x, ['.env.dist', '.env'])
         env_file_encoding = 'utf-8'
+        allow_mutation = False
 
 
 settings = ProjectSettings()

@@ -2,6 +2,7 @@ import asyncpg
 from asyncpg import Pool
 
 from config.settings import settings
+from database.migrations import DBMigrations
 
 
 class Database:
@@ -18,6 +19,7 @@ class Database:
             'database': settings.POSTGRES_DB
         }
         self.connection_pool: Pool | None = None
+        self.migrations = DBMigrations()
 
     async def create_connection_pool(self) -> Pool:
         """

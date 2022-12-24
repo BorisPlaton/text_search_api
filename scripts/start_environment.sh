@@ -19,7 +19,7 @@ function exit_if_file_not_exists() {
 exit_if_file_not_exists $ENV_FILE
 exit_if_file_not_exists $DOCKER_FILE
 
-if docker-compose --env-file="$ENV_FILE" -f "$DOCKER_FILE" up -d "$@"; then
+if docker-compose --env-file="$ENV_FILE" -f "$DOCKER_FILE" up "$@"; then
   echo -e "\033[1;32mSuccess\033[0m"
 else
   echo -e "\033[1;31mFailure\033[0m"

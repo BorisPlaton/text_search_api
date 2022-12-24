@@ -6,6 +6,7 @@ from starlette.requests import Request
 
 from config.settings import settings
 from database.db import Database
+from elastic.client import ElasticsearchClient
 from text_searcher.views import router as text_searcher_router
 
 
@@ -30,6 +31,7 @@ def create_app():
             },
         ]
     )
+    app.state.es = ElasticsearchClient()
     app.include_router(text_searcher_router)
 
     @app.middleware("http")
