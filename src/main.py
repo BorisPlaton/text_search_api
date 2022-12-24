@@ -21,6 +21,7 @@ def create_app():
     The factory function. Returns a FastAPI application instance.
     """
     db = Database()
+    client = ElasticsearchClient()
     app = FastAPI(
         title="Text Searcher",
         description=DESCRIPTION,
@@ -31,7 +32,7 @@ def create_app():
             },
         ]
     )
-    app.state.es = ElasticsearchClient()
+    app.state.es = client.es
     app.include_router(text_searcher_router)
 
     @app.middleware("http")
@@ -54,9 +55,11 @@ def create_app():
     @app.on_event('shutdown')
     async def shutdown_connection_pool():
         """
-        Close all connections in the pool.
+        Close all connections for the database connection pool
+        and Elasticsearch.
         """
-        return await db.close_connection_pool()
+        await db.close_connection_pool()
+        await client.es
 
     return app
 
