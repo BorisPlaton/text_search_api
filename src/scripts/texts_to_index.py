@@ -21,7 +21,7 @@ async def load_document_texts_to_index_from_db():
     except ApiError as e:
         print(str(e))
     else:
-        print(f"{res[0]} documents have been inserted.")
+        print(f"{res[0]} documents have been inserted to the index.")
     finally:
         es.close()
 

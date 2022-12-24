@@ -23,7 +23,7 @@ async def load_documents_to_db():
                     datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S')
                 )
             else:
-                print(f"{quantity + 1} documents have been inserted.")
+                print(f"{quantity + 1} documents have been inserted to the database.")
 
 
 if __name__ == '__main__':
