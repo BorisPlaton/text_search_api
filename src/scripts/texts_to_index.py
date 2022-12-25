@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch, ApiError
 from elasticsearch.helpers import bulk
 
 from database.db import Database
-from database.services.documents.selectors import get_all_documents
+from database.services.selectors import get_all_documents
 from elastic.client import ElasticsearchClient
 
 

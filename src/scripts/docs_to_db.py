@@ -6,7 +6,7 @@ from datetime import datetime
 
 from config.settings import settings
 from database.db import Database
-from database.services.documents.inserts import insert_new_document
+from database.services.inserts import insert_new_document
 
 
 async def load_documents_to_db():

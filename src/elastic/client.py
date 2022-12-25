@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from elasticsearch import AsyncElasticsearch
+from elasticsearch import AsyncElasticsearch, BadRequestError
 
 from config.settings import settings
 from elastic.indices import DocumentsIndex
@@ -20,7 +20,10 @@ class ElasticsearchClient:
         Creates all specified indices.
         """
         for index in self.indices:
-            await index.create(self.es)
+            try:
+                await index.create(self.es)
+            except BadRequestError:
+                print(f"Index with name {index.name} already exists.")
 
     @cached_property
     def elastic_uri(self) -> str:

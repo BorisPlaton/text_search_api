@@ -1,7 +1,7 @@
 from asyncpg import Connection
 from elasticsearch import AsyncElasticsearch
 
-from database.services.documents.selectors import get_documents_by_ids
+from database.services.selectors import get_documents_by_ids
 from elastic.services.selectors import get_similar_documents_ids
 from text_searcher.schemas import Document
 

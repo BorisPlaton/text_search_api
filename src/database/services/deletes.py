@@ -1,7 +1,7 @@
 from asyncpg import Connection, Record
 
 
-async def delete_document_by_id(conn: Connection, document_id: int) -> Record:
+async def delete_document_by_id(conn: Connection, document_id: int) -> Record | None:
     """
     Delete document by id and returns its data.
     """

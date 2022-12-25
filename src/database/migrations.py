@@ -20,5 +20,5 @@ class DBMigrations:
         backend = get_backend(self.db_uri)
         with backend.lock():
             backend.apply_migrations(
-                backend.to_apply(read_migrations(self.migrations_path))
+                backend.to_apply(read_migrations(str(self.migrations_path)))
             )

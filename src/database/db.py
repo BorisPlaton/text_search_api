@@ -1,5 +1,5 @@
 import asyncpg
-from asyncpg import Pool
+from asyncpg import Pool, Connection
 
 from config.settings import settings
 from database.migrations import DBMigrations
@@ -34,7 +34,7 @@ class Database:
         """
         return await self.connection_pool.close()
 
-    async def connect(self):
+    async def connect(self) -> Connection:
         """
         Establishes a connection to the database and returns it.
         """

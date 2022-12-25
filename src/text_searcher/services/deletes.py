@@ -1,7 +1,7 @@
 from asyncpg import Connection
 from elasticsearch import AsyncElasticsearch
 
-from database.services.documents.deletes import delete_document_by_id
+from database.services.deletes import delete_document_by_id
 from elastic.services.deletes import delete_text_by_id
 from text_searcher.schemas import Document
 

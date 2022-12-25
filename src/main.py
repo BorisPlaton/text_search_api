@@ -41,8 +41,8 @@ def create_app():
         Gets a db connection from the connection pool and sets it to
         the request, so the service layer can use it.
         """
-        async with db.connection_pool.acquire() as con:
-            request.state.connection = con
+        async with db.connection_pool.acquire() as conn:
+            request.state.conn = conn
             return await call_next(request)
 
     @app.on_event('startup')
