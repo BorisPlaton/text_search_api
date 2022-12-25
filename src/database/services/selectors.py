@@ -1,7 +1,7 @@
 from asyncpg import Connection, Record
 
 
-async def get_all_documents(conn: Connection) -> list[Record]:
+async def get_all_documents(conn: Connection) -> list[Record | None]:
     """
     Returns all documents.
     """

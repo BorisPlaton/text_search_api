@@ -2,7 +2,7 @@ from elasticsearch import AsyncElasticsearch
 
 
 async def get_similar_documents_ids(
-        es: AsyncElasticsearch, text_example: str, quantity: int
+        es: AsyncElasticsearch, text_example: str, quantity: int = 10
 ) -> list[int | None]:
     """
     Returns records' ID field which text is similar to the given one.
