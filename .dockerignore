@@ -4,9 +4,11 @@
 .env
 .env.dist
 .env.prod
+tox.ini
 docker-compose.dev.yml
+docker-compose.yml
 requirements.txt
-venv
+.venv
 Dockerfile
 **/__pycache__
 **/tests
