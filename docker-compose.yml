@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  text_searcher:
+    build: .
+    image: "text_searcher:latest"
+    container_name: text_searcher
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      database:
+        condition: service_started
+  database:
+    image: postgres
+    env_file:
+      - .env
+    restart: always
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "localhost:9200" ]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 20s
