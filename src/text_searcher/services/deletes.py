@@ -1,5 +1,6 @@
 from asyncpg import Connection
 from elasticsearch import AsyncElasticsearch
+from fastapi import HTTPException
 
 from database.services.deletes import delete_document_by_id
 from elastic.services.deletes import delete_text_by_id
@@ -17,6 +18,8 @@ async def delete_completely_document_by_id(
     async with conn.transaction():
         deleted_record = await delete_document_by_id(conn, document_id)
         if not deleted_record:
-            return
+            raise HTTPException(
+                404, "Document with ID %s doesn't exists" % document_id
+            )
         await delete_text_by_id(es, document_id)
     return Document(**deleted_record)

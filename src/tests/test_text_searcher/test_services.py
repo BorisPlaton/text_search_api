@@ -1,6 +1,7 @@
 from unittest.mock import patch, MagicMock
 
 import pytest
+from fastapi import HTTPException
 
 from text_searcher.schemas import Document
 from text_searcher.services.deletes import delete_completely_document_by_id
@@ -69,3 +70,10 @@ class TestDeleteServices:
         es_response = await es.search(index='documents', query={'term': {'iD': doc_id}})
         assert db_response == doc
         assert es_response['hits']['hits'][0]['_source']['iD'] == doc['id']
+
+    @pytest.mark.asyncio
+    async def test_if_document_with_id_doesnt_exist_raise_404_exception(
+            self, conn, es
+    ):
+        with pytest.raises(HTTPException):
+            await delete_completely_document_by_id(conn, es, 1)
