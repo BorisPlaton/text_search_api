@@ -9,5 +9,5 @@
 if docker-compose --env-file=.env.dist -f docker-compose.dev.yml up "$@"; then
   echo -e "\033[1;32mSuccess\033[0m"
 else
-  echo -e "\033[1;31mFailure\033[0m"
+  echo -e "\033[1;31mFailure\033[0m" && exit 1
 fi

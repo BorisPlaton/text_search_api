@@ -3,7 +3,6 @@ name = "text-searcher"
 version = "0.1.0"
 description = "The application for searching documents via text fragments."
 authors = ["Kirill <pnchkirill@gmail.com>"]
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"

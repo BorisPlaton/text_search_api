@@ -10,5 +10,5 @@ cd src || exit
 INIT_SCRIPTS=(scripts.docs_to_db scripts.create_indices scripts.texts_to_index)
 
 for script in "${INIT_SCRIPTS[@]}"; do
-  python -m "$script" || exit 1
+  python3 -m "$script" || exit 1
 done
