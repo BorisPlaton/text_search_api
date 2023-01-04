@@ -28,14 +28,19 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-interaction
       - name: Run shell scripts
-        run: |
-          . .venv/bin/activate
-          ./scripts/start_env.sh -d
-          sleep 15
-          ./scripts/migration.sh apply
-          ./scripts/init_env.sh
-          ./scripts/stop_env.sh
-          ./scripts/down_env.sh
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 2
+          retry_on: error
+          timeout_minutes: 2
+          command: |
+            . .venv/bin/activate
+            ./scripts/start_env.sh -d
+            sleep 20
+            ./scripts/migration.sh apply
+            ./scripts/init_env.sh
+            ./scripts/stop_env.sh
+            ./scripts/down_env.sh
 
   test_app:
     name: Test FastAPI application
@@ -56,13 +61,18 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-interaction
       - name: Run flake8 & pytest
-        run: |
-          . .venv/bin/activate
-          flake8
-          ./scripts/start_env.sh -d
-          cd src/
-          sleep 15
-          pytest
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 2
+          retry_on: error
+          timeout_minutes: 2
+          command: |
+            . .venv/bin/activate
+            flake8
+            ./scripts/start_env.sh -d
+            cd src/
+            sleep 20
+            pytest
 
   test_docker:
     name: Test Docker image build
